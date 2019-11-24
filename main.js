@@ -23,14 +23,12 @@ function addNewWish(){
     if(inputWish.classList.contains('hidden')){
         inputWish.classList.remove('hidden');
     }
-    console.log('soy un deseo');
 }
 writeWish.addEventListener('click', addNewWish);
 
 
 //Close input section and add wish to the list
 function addWishList() {
-    console.log('estoy deseando');
 
     if(input.value === ''){
         titleInput.innerHTML = 'Write your wish';
@@ -38,14 +36,19 @@ function addWishList() {
     }else{
         message.classList.add('hidden');
         inputWish.classList.add('hidden');
-        wishSpace.innerHTML = `<input class="item-amount" type="checkbox" value="1" id="1">${input.value}</input>`;
+        wishSpace.innerHTML += `<p class="wish" value="1" id="1">${input.value}</p>`;
     }
-
-
-
-    //meter nuevo deseo en el div
 }
 
 newWish.addEventListener('click',addWishList);
+
+//FUNCTION marcar tarea hecha:
+//    al hacer click mandarla a un div de abajo y ponerla tachada (cambiar clase)
+
+//FUNCTION eliminar tarea:
+//    poner una x en la parte derecha o algo que ponga eliminar y al hacer click ahí,
+//    eliminar la tarea, desaparece del local también
+
+
 
 
