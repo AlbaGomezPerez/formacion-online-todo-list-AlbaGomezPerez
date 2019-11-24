@@ -7,6 +7,7 @@ const inputWish = document.querySelector('.newWish');
 const newWish = document.querySelector('.addNewWish');
 const input = document.querySelector('.newWish-input');
 const wishSpace = document.querySelector('.listContainer');
+const titleInput = document.querySelector('.newWish-title');
 
 
 //get date
@@ -32,11 +33,12 @@ function addWishList() {
     console.log('estoy deseando');
 
     if(input.value === ''){
-        console.log('pon un deseo');
+        titleInput.innerHTML = 'Write your wish';
+        titleInput.classList.add('palpitation');
     }else{
         message.classList.add('hidden');
         inputWish.classList.add('hidden');
-        wishSpace.innerHTML = `<input class="item-amount" type="checkbox" value="1" id="1">hola</input>`;
+        wishSpace.innerHTML = `<input class="item-amount" type="checkbox" value="1" id="1">${input.value}</input>`;
     }
 
 

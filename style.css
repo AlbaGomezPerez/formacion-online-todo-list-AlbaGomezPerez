@@ -68,6 +68,8 @@ body{
     display: flex;
     justify-content: center;
     padding-top: 2%;
+    animation: turn 1.1s infinite;
+    transform-origin: center;
 }
 
 .date{
@@ -115,7 +117,24 @@ body{
     font-size: 18px;
     display: flex;
     justify-content: center;
-    padding-top: 8%;
+    padding-top: 4%;
+    padding-bottom: 4%;
+    animation: turn 1.1s infinite;
+    transform-origin: center;
+}
+
+/*ANIMATION*/
+.palpitation{
+animation: palpitation 1.1s infinite;
+transform-origin: center;
+}
+
+@keyframes palpitation {
+    50% { transform: scale(1.2); }
+}
+
+@keyframes turn {
+    50% { transform: rotate(100deg); }
 }
 
 
