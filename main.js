@@ -8,15 +8,22 @@ const newWish = document.querySelector('.addNewWish');
 const input = document.querySelector('.newWish-input');
 const wishSpace = document.querySelector('.listContainer');
 const titleInput = document.querySelector('.newWish-title');
+let wishIndex = 1;
 
 
 //get date
 let date = new Date();
-date.getDate()
-{
-    dateText.innerHTML= date;
-}
+dateText.innerHTML = date.toLocaleDateString("es-ES", { year: 'numeric', month: 'long', day: 'numeric' });
 
+window.onload = function () {
+    let storedWishesString = localStorage.getItem('wishes');
+    if (storedWishesString !== null) {
+        let storedWishes = JSON.parse(storedWishesString);
+        for(let storedWish of storedWishes){
+            createWishDom(storedWish);
+        }
+    }
+};
 
 //Open input section and write new wish
 function addNewWish(){
@@ -25,67 +32,76 @@ function addNewWish(){
     }
 }
 
+function saveLocalStorage() {
+    let storedWishesString = localStorage.getItem('wishes');
+    if (storedWishesString !== null) {
+        let storedWishes = JSON.parse(storedWishesString);
+        storedWishes.push(input.value);
+        localStorage.setItem('wishes', JSON.stringify(storedWishes));
+    } else {
+        localStorage.setItem('wishes', JSON.stringify([input.value]));
+    }
+}
 
+function createWishDom(wishText) {
+    wishSpace.innerHTML =
+        `<div class="wish-container" id="container_${wishIndex}">
+                <p class="wish" id="wish_${wishIndex}">${wishText}</p>
+                <div class="done" id="check_${wishIndex}">✔</div>
+                <div class="cancel" id="remove_${wishIndex}">✖</div>
+            </div>` + wishSpace.innerHTML;
+
+    wishIndex++;
+
+    for (let doneWishes of document.querySelectorAll('.done')) {
+        doneWishes.addEventListener('click', taskDone);
+    }
+
+    for (let cancelWishes of document.querySelectorAll('.cancel')) {
+        cancelWishes.addEventListener('click', removeTask);
+    }
+}
 
 //Close input section and add wish to the list
-function addWishList(index) {
-
+function addWishList(event) {
     if(input.value === ''){
         titleInput.innerHTML = 'Write your wish';
         titleInput.classList.add('palpitation');
     }else{
         message.classList.add('hidden');
         inputWish.classList.add('hidden');
-        wishSpace.innerHTML +=
-            `<div class="wish-container">
-                <p class="wish" id="wish_${index}">${input.value}</p>
-                <div class="done" id="check_${index}">✔</div>
-                <div class="cancel" id="remove_${index}">✖</div>
-            </div>`;
-
-        for (let doneWishes of document.querySelectorAll('.done')) {
-            doneWishes.addEventListener('click', taskDone);
-        }
-
-        for (let cancelWishes of document.querySelectorAll('.cancel')) {
-            cancelWishes.addEventListener('click', removeTask);
-        }
-
-        localStorage.setItem('wishes', input.value);
+        createWishDom(input.value);
+        saveLocalStorage();
+        input.value = '';
     }
-
 }
 
 
 
-function taskDone() {
-    for (let wishes of document.querySelectorAll('.wish')) {
-        wishes.classList.add('strikethrough');
-    }
+function taskDone(event) {
+    let id = event.currentTarget.id.replace('check_', '');
+    const wish = document.querySelector('#wish_' + id);
+    wish.classList.add('strikethrough');
 
-
-    // al hacer click mandarla a un div de abajo
+    //TODO al hacer click mandarla a un div de abajo
 }
 
-function removeTask() {
-    for (let wishTask of document.querySelectorAll('.wish-container')) {
-        wishTask.classList.add('hidden');
+function removeTask(event) {
+    let id = event.currentTarget.id.replace('remove_', '');
+    const wish = document.querySelector('#wish_' + id);
+    const wishText = wish.innerHTML;
+    let storedWishesString = localStorage.getItem('wishes');
+    if (storedWishesString !== null) {
+        let storedWishes = JSON.parse(storedWishesString);
+        storedWishes = storedWishes.filter(function(item) {
+            return item !== wishText
+        });
+        localStorage.setItem('wishes', JSON.stringify(storedWishes));
     }
-
-    //    eliminar la tarea, desaparece del local también
+    event.currentTarget.parentElement.remove();
 }
 
 
 writeWish.addEventListener('click', addNewWish);
-newWish.addEventListener('click',addWishList);
-
-
-
-//LOCAL STORE
-
-
-
-
-
-
+newWish.addEventListener('click', addWishList);
 
