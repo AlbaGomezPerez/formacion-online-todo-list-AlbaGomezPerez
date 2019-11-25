@@ -28,7 +28,7 @@ function addNewWish(){
 
 
 //Close input section and add wish to the list
-function addWishList() {
+function addWishList(index) {
 
     if(input.value === ''){
         titleInput.innerHTML = 'Write your wish';
@@ -38,15 +38,20 @@ function addWishList() {
         inputWish.classList.add('hidden');
         wishSpace.innerHTML +=
             `<div class="wish-container">
-                <p class="wish" id="1">${input.value}</p>
-                <div class="done">✔</div>
-                <div class="cancel">✖</div>
+                <p class="wish" id="wish_${index}">${input.value}</p>
+                <div class="done" id="check_${index}">✔</div>
+                <div class="cancel" id="remove_${index}">✖</div>
             </div>`;
-        const done = document.querySelector('.done');
-        done.addEventListener('click', taskDone);
 
-        const remove = document.querySelector('.cancel');
-        remove.addEventListener('click', removeTask);
+        for (let doneWishes of document.querySelectorAll('.done')) {
+            doneWishes.addEventListener('click', taskDone);
+        }
+
+        for (let cancelWishes of document.querySelectorAll('.cancel')) {
+            cancelWishes.addEventListener('click', removeTask);
+        }
+
+        localStorage.setItem('wishes', input.value);
     }
 
 }
@@ -54,14 +59,19 @@ function addWishList() {
 
 
 function taskDone() {
-    const wish = document.querySelector('.wish');
-    wish.classList.add('strikethrough');
+    for (let wishes of document.querySelectorAll('.wish')) {
+        wishes.classList.add('strikethrough');
+    }
+
+
     // al hacer click mandarla a un div de abajo
 }
 
 function removeTask() {
-    const wishTask = document.querySelector('.wish-container');
-    wishTask.classList.add('hidden');
+    for (let wishTask of document.querySelectorAll('.wish-container')) {
+        wishTask.classList.add('hidden');
+    }
+
     //    eliminar la tarea, desaparece del local también
 }
 
@@ -71,11 +81,10 @@ newWish.addEventListener('click',addWishList);
 
 
 
-
-
 //LOCAL STORE
 
-//Poner un mensaje de que solo puedes poner 5 deseos
+
+
 
 
 
