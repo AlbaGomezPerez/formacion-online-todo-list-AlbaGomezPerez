@@ -24,7 +24,7 @@ function addNewWish(){
         inputWish.classList.remove('hidden');
     }
 }
-writeWish.addEventListener('click', addNewWish);
+
 
 
 //Close input section and add wish to the list
@@ -36,18 +36,40 @@ function addWishList() {
     }else{
         message.classList.add('hidden');
         inputWish.classList.add('hidden');
-        wishSpace.innerHTML += `<p class="wish" value="1" id="1">${input.value}</p>`;
+        wishSpace.innerHTML +=
+            `<div class="wish-container">
+                <p class="wish" id="1">${input.value}</p>
+                <div class="done">✔</div>
+                <div class="cancel">✖</div>
+            </div>`;
+        const done = document.querySelector('.done');
+        done.addEventListener('click', taskDone);
     }
+
 }
 
+
+
+function taskDone() {
+    const wish = document.querySelector('.wish');
+    wish.classList.add('strikethrough');
+    // al hacer click mandarla a un div de abajo
+}
+
+
+writeWish.addEventListener('click', addNewWish);
 newWish.addEventListener('click',addWishList);
 
-//FUNCTION marcar tarea hecha:
-//    al hacer click mandarla a un div de abajo y ponerla tachada (cambiar clase)
+
 
 //FUNCTION eliminar tarea:
 //    poner una x en la parte derecha o algo que ponga eliminar y al hacer click ahí,
 //    eliminar la tarea, desaparece del local también
+
+
+//LOCAL STORE
+
+//Poner un mensaje de que solo puedes poner 5 deseos
 
 
 
