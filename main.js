@@ -16,6 +16,9 @@ let date = new Date();
 dateText.innerHTML = date.toLocaleDateString("es-ES", { year: 'numeric', month: 'long', day: 'numeric' });
 
 window.onload = function () {
+    const defaultText = document.querySelector('.defaultText');
+    defaultText.remove();
+
     let storedWishesString = localStorage.getItem('wishes');
     if (storedWishesString !== null) {
         let storedWishes = JSON.parse(storedWishesString);
