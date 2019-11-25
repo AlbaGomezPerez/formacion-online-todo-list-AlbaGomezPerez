@@ -20,7 +20,7 @@ body{
     font-size: 30px;
     text-transform: uppercase;
     text-align: center;
-    margin-top: 1%;
+    margin-top: 5%;
     margin-bottom: 0;
 }
 
@@ -36,19 +36,26 @@ body{
     height: 60%;
     width: 70%;
     margin: auto;
+    margin-top: 10%;
     border-radius: 8%;
     -webkit-box-shadow: -2px -1px 53px -5px rgba(248, 138, 54, 0.6);
 }
+
+.defaultText{
+    margin: auto;
+    margin-top: 40%;
+    color: #451425;
+}
+
 
 .listContainer{
     display: flex;
     flex-direction: column;
     margin-left: 5%;
+    margin-right: 5%;
     margin-top: 5%;
 }
 
-.check{
-}
 
 .footerList{
     background-image: url("./images/background.jpg");
@@ -72,6 +79,7 @@ body{
     animation: turn 1.1s infinite;
     transform-origin: center;
 }
+
 
 .date{
     color: white;

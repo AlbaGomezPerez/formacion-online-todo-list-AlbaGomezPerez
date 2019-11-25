@@ -44,6 +44,9 @@ function addWishList() {
             </div>`;
         const done = document.querySelector('.done');
         done.addEventListener('click', taskDone);
+
+        const remove = document.querySelector('.cancel');
+        remove.addEventListener('click', removeTask);
     }
 
 }
@@ -56,15 +59,18 @@ function taskDone() {
     // al hacer click mandarla a un div de abajo
 }
 
+function removeTask() {
+    const wishTask = document.querySelector('.wish-container');
+    wishTask.classList.add('hidden');
+    //    eliminar la tarea, desaparece del local también
+}
+
 
 writeWish.addEventListener('click', addNewWish);
 newWish.addEventListener('click',addWishList);
 
 
 
-//FUNCTION eliminar tarea:
-//    poner una x en la parte derecha o algo que ponga eliminar y al hacer click ahí,
-//    eliminar la tarea, desaparece del local también
 
 
 //LOCAL STORE
